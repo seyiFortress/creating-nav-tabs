@@ -143,7 +143,7 @@
       }
 
       .ready #tab-header-3 {
-      	left: 18.5em;
+      	left: 18em;
       }
 
       .ready .tab-content {
@@ -333,21 +333,55 @@
 
 	  document.addEventListener('DOMContentLoaded', 
 	  function () {
-		document.getElementById('tab-group').className = "ready";
+		const tabGroup = document.getElementById('tab-group');
+		tabGroup.className = "ready";
 
-		const operateTab = (e) => console.log('Heard a tab click!', e);
+		/* Create new header element */
+		const newHeaderElement = document.createElement('h3');
+		newHeaderElement.className = "tab-header";
+		newHeaderElement.id = "tab-header-4";
+		newHeaderElement.innerText = "The Future";
 
-		/* const tab1 = document.getElementById('tab-header-1');
-		const tab2 = document.getElementById('tab-header-2');
-		const tab3 = document.getElementById('tab-header-3');
+		/* create new content */
+		const newContentElement = document.createElement('div');
+		newContentElement.className = "tab-content";
+		newContentElement.id = "tab-content-4";
+		newContentElement.innerHTML = `<p>
+              The future is to continue to expand our oil
+              varieties, while adding other delicious and inspired products to
+              our recently developed and wildly successful bread and cracker
+              line.
+            </p>`;
+		
+		/* Append new header and content to tab group */
+		tabGroup.appendChild(newHeaderElement);
+		tabGroup.appendChild(newContentElement);
 
-		tab1.addEventListener('click', operateTab);
-		tab2.addEventListener('click', operateTab);
-		tab3.addEventListener('click', operateTab); */
+		/* Apply style to newHeaderElement */
+		newHeaderElement.style.left = "22em";
 
+		/* Get all tabs and contents */
 		const tabHeader = document.getElementsByClassName('tab-header');
+		const tabContent = document.getElementsByClassName('tab-content');
+
+		const activateTab = e => {
+			const target = e.target;
+			const contentID = target.id.replace('tab-header-', 'tab-content-');
+			const content = document.getElementById(contentID);
+
+			/* Remove active class from all headers and contents */
+			for (let i = 0; i < tabHeader.length; i++) {
+				tabHeader[i].classList.remove('active');
+				tabContent[i].classList.remove('active');
+			}
+
+			/* Add active class to clicked header and corresponding content */
+			target.classList.add('active');
+			content.classList.add('active');
+		}
+
 		for (let v = 0; v < tabHeader.length; v++) {
-			tabHeader[v].addEventListener('click', operateTab);
+			tabHeader[v].addEventListener('click', activateTab);
 		};
 	  })
     </script>
